@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    <Runtime>
+    </Runtime>
+    <Extension path="/MonoDevelop/Ide/ProjectTemplates">
+        <ProjectTemplate id="PluginsForXamarinTemplateAddin.PluginsForXamarinTemplate"
+                         file="Templates/PluginsForXamarinTemplate.xpt.xml"/>
+    </Extension>
+</ExtensionModel>

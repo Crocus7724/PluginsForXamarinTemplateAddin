@@ -1,0 +1,88 @@
+﻿<?xml version="1.0"?>
+<Template>
+    <TemplateConfiguration>
+        <_Name>Plugins for Xamarin Library</_Name>
+        <Category>multiplat/library/general</Category>
+        <LanguageName>C#</LanguageName>
+        <_Description>Creates Plugins for Xamarin Library.</_Description>
+        <!--<GroupId>xamarin-forms-project-library</GroupId>-->
+    </TemplateConfiguration>
+    <Actions>
+    </Actions>
+    <Combine name="${ProjectName}" directory="./">
+        <Options>
+        </Options>
+        <Project name="${ProjectName}" directory="./${ProjectName}"
+                 type="C#PortableLibrary" namesapce="${ProjectName}">
+            <Options Target="Library" TargetFrameworkVersion=".NETPortable,Version=v4.5,Profile=Profile259"
+                     DefineConstantsDebug="PORTABLE" DefineConstantsRelease="PORTABLE"/>
+            <References>
+                <Reference type="Project" refto="${ProjectName}.Abstractions"/>
+            </References>
+            <Packages>
+            </Packages>
+            <Files>
+            </Files>
+        </Project>
+
+        <Project name="${ProjectName}.Abstractions" namesapce="${ProjectName}.Abstractions"
+                 type="C#PortableLibrary" directory="./${ProjectName}.Abstractions">
+            <Options Target="Library"
+                     TargetFrameworkVersion=".NETPortable,Version=v4.5,Profile=Profile259"/>
+            <Files>
+            </Files>
+        </Project>
+
+        <Project name="${ProjectName}.iOS" directory="./${ProjectName}.iOS" namesapce="${ProjectName}"
+                 type="XamarinIOS">
+            <Options Target="Library" TargetFrameworkVersion="Xamarin.iOS,Version=v1.0"/>
+            <References>
+                <Reference type="Gac"
+                           refto="System, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Gac"
+                           refto="System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Gac"
+                           refto="System.Core, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Project" refto="${ProjectName}.Abstractions"/>
+            </References>
+            <Files>
+                <Directory name="Resources"/>
+                <FileTemplateReference TemplateID="CSharpAssemblyInfo" name="AssemblyInfo.cs"/>
+            </Files>
+        </Project>
+
+        <Project name="${ProjectName}.Android" directory="./${ProjectName}.Android"
+                 namesapce="${ProjectName}" type="MonoDroid">
+            <Options Target="Library" AndroidResgenFile="Resources/Resource.designer.cs"
+                     AndroidResgenClass="Resource"/>
+            <References>
+                <Reference type="Gac"
+                           refto="System, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Gac"
+                           refto="System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Gac"
+                           refto="System.Core, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"/>
+                <Reference type="Gac" refto="Mono.Android"/>
+                <Reference type="Project" refto="${ProjectName}.Abstractions"/>
+            </References>
+            <Files>
+                <Directory name="Resources">
+                    <File name="Resource.designer.cs"
+                          src="../../MonoDevelop.MonoDroid/templates/Project/Common/Resource.cs"/>
+                   <!-- <RawFile name="AboutResources.txt"
+                             src="../../MonoDevelop.MonoDroid/templates/Project/Common/AboutResources.txt"/>-->
+                    <Directory name="values">
+                        <File name="Strings.xml"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="library_name">${ProjectName}</string>
+</resources>]]></File>
+                    </Directory>
+                </Directory>
+                <Directory name="Properties">
+                    <File name="AssemblyInfo.cs"
+                          src="../../MonoDevelop.MonoDroid/templates/Project/Common/AssemblyInfo.cs"/>
+                </Directory>
+            </Files>
+        </Project>
+    </Combine>
+</Template>
